@@ -8,8 +8,14 @@ const routes = [
 {
 	method: 'GET',
 	path: '/',
+	config: {
+	// include this route in swagger documentation
+		description:"Home Route",
+	    notes:"Home Page is comming soon",
+		tags:['api'],
+	},
 	handler: async(request, h)=>{
-		return ('!Hello')
+		return ('Welcome to BaseHippo')
 	}
 },
 {
@@ -49,20 +55,19 @@ const routes = [
 				"gender": request.payload.gender,
 				"business": request.payload.business,
 				"isValid": false
-			});			
-			ref.push(newUser)
-			if (newUser.length == 0) {
-				return resolve({
-					statusCode: 401,
-					message: "Operation not successfully Completed there is something messing"
-				});
-			}else{
-				return resolve({
-					statusCode: 200,
-					message: "Operation successfully Completed",
-					data: newUser
-				});
-			}
+			});
+			ref.push(newUser, function async(error, userdata){
+				if (err) {
+					console.log(error)
+					throw error
+				}else{
+						return resolve({
+						statusCode: 200,
+						message: "Operation successfully Completed",
+						data: newUser
+					});
+				}
+			})
 		}
 		return new Promise(pr)
 	} 

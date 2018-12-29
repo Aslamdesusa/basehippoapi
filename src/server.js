@@ -37,7 +37,7 @@ const init = async () => {
     });
     const swaggerOptions = {
         info: {
-            title: 'Test API Documentation'
+            title: 'BaseHippo Test API Documentation'
         },
     };
 
